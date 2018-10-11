@@ -2,26 +2,11 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 require 'config.php';	
-		//服务器地址
-		$address=[
-			'baidu.com',
-			'youku.com',
-			'aa',
-			'cc',
-			'blog.csdn.net',
-		];
-		//发送邮件配置信息
-			$jszdz = [
-			'331607184@qq.com'  //接收者邮件地址
-		];
-
-		$config=[
-			'Username' => '331607184@qq.com',	// smtp登录的账号 QQ邮箱
-			'Password' => 'uifoidfgpiksbhff',				// smtp登录的密码 使用生成的授权码
-		];
+		
 		//ping 地址是否通
 		function pingAddress($address){
 			$status = 0;
+			//判断当前服务器
 			if (strcasecmp(PHP_OS,'WINNT') === 0){
 				//windows 服务器
 				$pingresult = exec("ping -n 1 {$address}", $outcome, $status);
@@ -29,7 +14,6 @@ require 'config.php';
 			}elseif(strcasecmp(PHP_OS,'linux') === 0){
 				//linux 服务器
 				$pingresult = exec ("ping -c 1 {$address}", $outcome, $status);
-
 			}
 
 			
@@ -41,6 +25,7 @@ require 'config.php';
 			return $status;
 		}
 
+
 		$content='';
 		foreach ($address as $val) {
 			$res=pingAddress($val);
@@ -48,6 +33,11 @@ require 'config.php';
 				$content.=','.$val;
 			}
 		}
+
+
+
+		//有断网的网站 发送ip或域名到邮箱
+
 		if( !empty( $content ) ){
 		//断网的服务器总内容
 			$content=substr($content,1);
