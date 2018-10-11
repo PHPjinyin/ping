@@ -25,7 +25,7 @@ require 'config.php';
 			return $status;
 		}
 
-
+		//循环地址 依次ping  未通过的ip 或域名存入content 
 		$content='';
 		foreach ($address as $val) {
 			$res=pingAddress($val);
